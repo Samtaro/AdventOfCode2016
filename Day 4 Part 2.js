@@ -994,7 +994,23 @@ var realRooms = roomsToArr.map(function(room){
   }
   return check === room.checksum;
 })
-.reduce(function(acc, room){
-  return acc + parseInt(room.id)
-}, 0)
+.map(function(room){
+  var rotate = parseInt(room.id) % 26;
+  var realRoomName = "";
+  for(var i = 0; i<room.name.length; i++){
+    if(room.name.charAt(i) === "-"){
+      realRoomName += " ";
+    }
+    else if((room.name.charCodeAt(i) + rotate) > 122){
+      realRoomName += String.fromCharCode(room.name.charCodeAt(i) + rotate - 26)
+    }
+    else{
+      realRoomName += String.fromCharCode(room.name.charCodeAt(i) + rotate)
+    }
+  }
+  return [realRoomName, room.id];
+})
+.filter(function(roomName){
+  return roomName[0].indexOf("northpole") >= 0
+})
 console.log(realRooms)
