@@ -1,4 +1,5 @@
-var triangles = `775  785  361
+var triangles =
+`  775  785  361
   622  375  125
   297  839  375
   245   38  891
@@ -1916,9 +1917,20 @@ var triangles = `775  785  361
 var triToArr = triangles.split("\n").map(function(triDim){
   var trimmed = triDim.trim()
   var trimmedToArr = [trimmed.substring(0,3),trimmed.substring(5,8),trimmed.substring(10)]
-  return trimmedToArr.map(function(dim){
-    return parseInt(dim)
+    return trimmedToArr.map(function(dim){
+      return parseInt(dim)
   })
 })
-
-console.log(triToArr)
+var numOfTriangles = triToArr.reduce(function(acc, dimension){
+  // console.log(dimension)
+  // console.log(acc)
+  var a = dimension[0];
+  var b = dimension[1];
+  var c = dimension[2];
+  console.log(((a+b) > c && (b+c) > a && (c+a) > b), acc)
+  if(a+b > c && b+c > a && c+a > b){
+    return acc + 1;
+  }
+  return acc;
+}, 0)
+console.log(numOfTriangles)
