@@ -12,4 +12,4 @@ while(counter <8){
     }
   i++
 }
-console.log(password.join().replace(",", ""))
+console.log(password.join().replace(/[,]/g, ""))
